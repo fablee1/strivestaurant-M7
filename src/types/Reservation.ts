@@ -1,20 +1,14 @@
 interface Reservation {
-  id: number
+  _id: string
   name: string
-  image: string
-  category: string
-  label: string
-  price: string
-  description: string
-  comments: Comment[]
+  phone: string
+  smoking: boolean
+  dateTime: string
+  specialRequests: string
+  numberOfPersons: number
+  createdAt: string
+  updatedAt: string
+  __v: number
 }
 
 export default Reservation
-
-interface Comment {
-  id: number
-  rating: number
-  comment: string
-  author: string
-  date: string
-}

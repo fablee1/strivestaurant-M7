@@ -3,9 +3,10 @@ import { Container, Col, Row, ListGroup } from "react-bootstrap"
 import Loading from "./Loading"
 import Error from "./Error"
 import ReservationForm from "./ReservationForm"
+import Reservation from "../types/Reservation"
 
 const Reservations = () => {
-  const [reservations, setReservations] = useState([])
+  const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
 
@@ -13,8 +14,12 @@ const Reservations = () => {
     const getData = async () => {
       try {
         const response = await fetch("https://striveschool.herokuapp.com/api/reservation")
-        const newReservations = await response.json()
-        setReservations(newReservations)
+        if (response.ok) {
+          const newReservations = (await response.json()) as Reservation[]
+          setReservations(newReservations)
+        } else {
+          setIsError(true)
+        }
         setIsLoading(false)
       } catch (error) {
         console.log(error)
